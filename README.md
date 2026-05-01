@@ -253,7 +253,7 @@ Perfect for:
 
 ## 👨‍💻 Author
 
-**Adeel Arshad**
+**Rimsha Arshad**
 
 ---
 
