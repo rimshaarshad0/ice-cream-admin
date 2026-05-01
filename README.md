@@ -1,39 +1,268 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🍦 Ice Cream Admin Dashboard
 
-## Getting Started
+A modern **Admin Dashboard** built with **Next.js 15 + Sanity CMS** to manage customer orders for an ice cream store.
+This dashboard allows admins to **view, update, filter, and delete orders** in real-time.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+### 🔐 Admin Authentication
+
+* Simple password-based login system
+* Redirects to dashboard on successful login
+
+### 📦 Order Management
+
+* View all customer orders
+* Expand each order to see full details:
+
+  * Customer name
+  * Address
+  * Order items
+  * Total price
+  * Created date
+
+### 🔄 Order Status Control
+
+* Update order status:
+
+  * Pending
+  * Processing
+  * Shipped
+  * Delivered
+  * Cancelled
+
+### 🗑 Delete Orders
+
+* Remove orders permanently with confirmation
+
+### 🔍 Filter Orders
+
+* Filter orders by status using navbar:
+
+  * All / Pending / Processing / Shipped / Delivered / Cancelled
+
+### 💰 Total Price Calculation
+
+* Automatically calculates total price of each order
+
+### 📱 Responsive Design
+
+* Fully responsive UI (mobile + desktop)
+* Sidebar menu for mobile devices
+
+---
+
+## 🛠 Tech Stack
+
+* **Next.js 15 (App Router)**
+* **React**
+* **Tailwind CSS**
+* **Sanity CMS**
+* **Next Image Optimization**
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+│
+├── app/
+│   ├── page.js                # Admin Login Page
+│   ├── dashboard/page.js     # Dashboard Page
+│   ├── layout.js             # Root Layout
+│   └── api/                  # API routes (update/delete orders)
+│
+├── components/
+│   ├── adminLogin.js         # Login Component
+│   ├── dashboard.js          # Orders UI
+│   ├── navbar.js             # Filter Navigation
+│   └── total.js              # Total Price Component
+│
+├── sanity/
+│   ├── lib/
+│   │   ├── client.ts         # Sanity Client
+│   │   ├── image.ts          # Image Builder
+│   │   └── live.ts           # Live Data Config
+│   │
+│   ├── schemaTypes/
+│   │   └── index.ts          # Schema Registration
+│   │
+│   ├── items.js              # Product Schema
+│   ├── order.js              # Order Schema
+│   ├── reviews.js            # Review Schema
+│   └── env.ts                # Environment Config
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/your-username/ice-cream-admin-dashboard.git
+cd ice-cream-admin-dashboard
+```
+
+---
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 3️⃣ Setup Environment Variables
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2025-07-03
+
+SANITY_API_TOKEN=your_sanity_token
+```
+
+> ⚠️ Use an **Editor token** for write access (update/delete).
+
+---
+
+### 4️⃣ Run the project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App will run at:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔌 API Routes
 
-To learn more about Next.js, take a look at the following resources:
+### Update Order Status
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+POST /api/update-order
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Body:**
 
-## Deploy on Vercel
+```json
+{
+  "orderId": "string",
+  "status": "processing"
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# admin_ice_cream
-# ice-cream-admin
-# ice-cream-admin
+### Delete Order
+
+```
+POST /api/delete-order
+```
+
+**Body:**
+
+```json
+{
+  "orderId": "string"
+}
+```
+
+---
+
+## 🧠 Sanity Schema Overview
+
+### 📦 Order Schema
+
+* name
+* address
+* cartItems[]
+
+  * title
+  * price
+  * quantity
+  * image
+* status
+* createdAt
+
+---
+
+### 🍨 Item Schema
+
+* title
+* slug
+* image
+* description
+* price
+* category
+* available
+
+---
+
+### ⭐ Review Schema
+
+* name
+* rating
+* message
+
+---
+
+## ⚠️ Important Notes
+
+* ❌ Do NOT expose Sanity token with `NEXT_PUBLIC_`
+* ✅ Always use server-side API routes for:
+
+  * Updating orders
+  * Deleting orders
+* ⚠️ Current login system is basic (not secure for production)
+
+---
+
+## 🔒 Future Improvements
+
+* Secure authentication (JWT / NextAuth)
+* Role-based admin system
+* Real-time updates (Sanity Live API)
+* Order analytics dashboard
+* Payment integration tracking
+
+---
+
+## 🎯 Use Case
+
+Perfect for:
+
+* Small food businesses
+* Ice cream shops
+* E-commerce admin panels
+* Learning full-stack development with Next.js + Sanity
+
+---
+
+## 👨‍💻 Author
+
+**Adeel Arshad**
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
